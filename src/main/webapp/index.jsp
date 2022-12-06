@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>JSP - Hello World</title>
+        <title>Projet</title>
     </head>
     <body>
 
@@ -14,7 +14,7 @@
 
         <%for(Etudiant etudiant : GestionFactory.getEtudiants()) {%>
         <div>
-            <a href="details.jsp?id=<%=etudiant.getId()%>">
+            <a href="servlettraitementdetails?id=<%=etudiant.getId()%>">
                 <%=etudiant.getPrenom() %>
                 <%=etudiant.getNom() %>
             </a>

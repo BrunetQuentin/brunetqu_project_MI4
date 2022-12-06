@@ -1,28 +1,28 @@
 <%@ page import="iut2.brunetqu_projet_mi4.GestionFactory" %>
 <%@ page import="iut2.brunetqu_projet_mi4.Etudiant" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<jsp:useBean id="etudiant" class="iut2.brunetqu_projet_mi4.Etudiant" scope="request"/>
+<jsp:useBean id="nbAbsences" type="java.lang.Integer" scope="request"/>
+
 <html>
 <head>
-    <title>Title</title>
+    <title><%= etudiant.getNom() %> <%= etudiant.getPrenom() %></title>
 </head>
 <body>
     <h1>Projet - étape 2</h1>
     <h2>Fiche détaillée d'un étudiant</h2>
-    <%
-        int id = Integer.valueOf(request.getParameter("id"));
-        Etudiant etudiant = GestionFactory.getEtudiantById(id);
-    %>
     <div>
         Nom :
-        <%=etudiant.getNom() %>
+        <%= etudiant.getNom() %>
     </div>
     <div>
         Prénom :
-        <%=etudiant.getPrenom() %>
+        <%= etudiant.getPrenom() %>
     </div>
     <div>
         Nombre d'abscence :
-        <%= GestionFactory.getAbsencesByEtudiantId(etudiant.getId()) %>
+        <%= nbAbsences %>
     </div>
 
     <br/>

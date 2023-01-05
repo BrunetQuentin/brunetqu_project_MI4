@@ -1,20 +1,36 @@
 package iut2.brunetqu_projet_mi4.data;
 
-public class Etudiant {
-	
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+public class Etudiant implements Serializable {
+
+	@Id
+	@GeneratedValue
 	private Integer id;
+	@Column(nullable = false)
 	private String prenom;
+	@Column(nullable = false)
 	private String nom;
-	
+	@OneToMany(mappedBy = "groupe", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	private List<Groupe> groupes;
+	@OneToMany(mappedBy = "note", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	private List<Note> notes;
+	@OneToMany(mappedBy = "absence", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	private List<Absence> absences;
+
+	public List<Groupe> getGroupe() {
+		return groupes;
+	}
+
+	public void setGroupe(List<Groupe> groupes) {
+		this.groupes = groupes;
+	}
 	public Etudiant() {
 		super();
-	}
-	
-	public Etudiant(Integer id, String prenom, String nom) {
-		super();
-		this.id = id;
-		this.prenom = prenom;
-		this.nom = nom;
 	}
 
 	public Integer getId() {
@@ -40,4 +56,18 @@ public class Etudiant {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+
+	public void addNote(Note note){
+		this.notes.add(note);
+	}
+	public void addAbsence(Absence absence){
+		this.absences.add(absence);
+	}
+	public void removeNote(Note note){
+		this.notes.remove(note);
+	}
+	public void removeAbsence(Absence absence){
+		this.absences.remove(absence);
+	}
+
 }

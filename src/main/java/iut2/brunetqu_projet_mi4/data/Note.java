@@ -1,31 +1,36 @@
 package iut2.brunetqu_projet_mi4.data;
 
-public class Note {
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
-    private Integer note;
+@Entity
+public class Note implements Serializable {
 
-    public Integer getId() {
-        return id;
+    private int note;
+    @Id
+    @GeneratedValue
+    private int id;
+
+    @OneToMany(mappedBy = "note", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Etudiant> etudiant;
+
+    public Note() {
+        super();
     }
 
-    private Integer id;
-
-    public Integer getIdEtudiant() {
-        return idEtudiant;
+    public Note(int note) {
+        super();
     }
 
-    private Integer idEtudiant;
-    public Note(Integer id, Integer idEtudiant, Integer note) {
-        this.note = note;
-        this.id = id;
-        this.idEtudiant = idEtudiant;
-    }
-
-    public Integer getNote() {
+    public int getNote() {
         return note;
     }
 
-    public void setNote(Integer note) {
+    public void setNote(int note) {
         this.note = note;
+    }
+    public int getId() {
+        return id;
     }
 }

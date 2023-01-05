@@ -1,4 +1,4 @@
-package iut2.brunetqu_projet_mi4;
+package iut2.brunetqu_projet_mi4.data;
 
 public class Etudiant {
 	

@@ -1,5 +1,8 @@
 package iut2.brunetqu_projet_mi4;
 
+import iut2.brunetqu_projet_mi4.data.Etudiant;
+import iut2.brunetqu_projet_mi4.data.GestionFactory;
+
 public class TestAbsences {
 
 	/**

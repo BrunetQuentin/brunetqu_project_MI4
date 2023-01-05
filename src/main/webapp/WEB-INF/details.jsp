@@ -1,8 +1,8 @@
-<%@ page import="iut2.brunetqu_projet_mi4.GestionFactory" %>
-<%@ page import="iut2.brunetqu_projet_mi4.Etudiant" %>
+<%@ page import="iut2.brunetqu_projet_mi4.data.GestionFactory" %>
+<%@ page import="iut2.brunetqu_projet_mi4.data.Etudiant" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:useBean id="etudiant" class="iut2.brunetqu_projet_mi4.Etudiant" scope="request"/>
+<jsp:useBean id="etudiant" class="iut2.brunetqu_projet_mi4.data.Etudiant" scope="request"/>
 <jsp:useBean id="nbAbsences" type="java.lang.Integer" scope="request"/>
 
 <html>
@@ -26,6 +26,6 @@
     </div>
 
     <br/>
-    <a href="index.jsp">Retour à la liste d'étudiants</a>
+    <a href="servletindex">Retour à la liste d'étudiants</a>
 </body>
 </html>

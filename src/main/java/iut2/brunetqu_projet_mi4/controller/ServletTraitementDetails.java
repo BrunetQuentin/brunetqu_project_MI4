@@ -1,5 +1,7 @@
-package iut2.brunetqu_projet_mi4;
+package iut2.brunetqu_projet_mi4.controller;
 
+import iut2.brunetqu_projet_mi4.data.Etudiant;
+import iut2.brunetqu_projet_mi4.data.GestionFactory;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
@@ -34,14 +36,14 @@ public class ServletTraitementDetails extends HttpServlet {
 
         // Récupérer les détails
         Etudiant etudiant = GestionFactory.getEtudiantById(id);
-        Integer nbAbsences = GestionFactory.getAbsencesByEtudiantId(id);
+        Integer nbAbsences = GestionFactory.getAbsencesByEtudiantId(id).length;
 
         // Mettre les détails dans la requête
         request.setAttribute("etudiant", etudiant);
         request.setAttribute("nbAbsences", nbAbsences);
 
         // Forward vers details.jsp
-        loadJSP("/details.jsp", request, response);
+        loadJSP("/WEB-INF/details.jsp", request, response);
 
     }
 
@@ -63,13 +65,6 @@ public class ServletTraitementDetails extends HttpServlet {
      */
     public void loadJSP(String url, HttpServletRequest request,
                         HttpServletResponse response) throws ServletException, IOException {
-
-//		L'interface RequestDispatcher permet de transférer le contrôle à une autre servlet
-//		Deux méthodes possibles :
-//		- forward() : donne le contrôle à une autre servlet. Annule le flux de sortie de la servlet courante
-//		- include() : inclus dynamiquement une autre servlet
-//			+ le contrôle est donné à une autre servlet puis revient à la servlet courante (sorte d'appel de fonction). 
-//			+ Le flux de sortie n'est pas supprimé et les deux se cumulent
 
         ServletContext sc = getServletContext();
         RequestDispatcher rd = sc.getRequestDispatcher(url);

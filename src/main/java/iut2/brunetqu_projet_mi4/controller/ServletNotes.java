@@ -1,5 +1,7 @@
 package iut2.brunetqu_projet_mi4.controller;
 
+import iut2.brunetqu_projet_mi4.DAO.EtudiantDAO;
+import iut2.brunetqu_projet_mi4.DAO.NoteDAO;
 import iut2.brunetqu_projet_mi4.data.Etudiant;
 import iut2.brunetqu_projet_mi4.data.GestionFactory;
 import iut2.brunetqu_projet_mi4.data.Note;
@@ -14,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 @WebServlet(name = "servletnotes", value = "/servletnotes")
 public class ServletNotes extends HttpServlet {
@@ -23,10 +26,10 @@ public class ServletNotes extends HttpServlet {
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        HashMap<Integer, Note[]> notes = GestionFactory.getNotesByEtus();
+        List<Note> notes = NoteDAO.getAll();
         request.setAttribute("notes", notes);
 
-        Collection<Etudiant> etudiants = GestionFactory.getEtudiants();
+        Collection<Etudiant> etudiants = EtudiantDAO.getAll();
         request.setAttribute("etudiants", etudiants);
 
         loadJSP("/WEB-INF/note/note.jsp", request, response);

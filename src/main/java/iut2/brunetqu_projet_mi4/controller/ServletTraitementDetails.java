@@ -1,5 +1,6 @@
 package iut2.brunetqu_projet_mi4.controller;
 
+import iut2.brunetqu_projet_mi4.DAO.EtudiantDAO;
 import iut2.brunetqu_projet_mi4.data.Etudiant;
 import iut2.brunetqu_projet_mi4.data.GestionFactory;
 import jakarta.servlet.RequestDispatcher;
@@ -35,8 +36,8 @@ public class ServletTraitementDetails extends HttpServlet {
         int id = Integer.valueOf(request.getParameter("id"));
 
         // Récupérer les détails
-        Etudiant etudiant = GestionFactory.getEtudiantById(id);
-        Integer nbAbsences = GestionFactory.getAbsencesByEtudiantId(id).length;
+        Etudiant etudiant = EtudiantDAO.getAll().get(id);
+        Integer nbAbsences = EtudiantDAO.getAll().size();
 
         // Mettre les détails dans la requête
         request.setAttribute("etudiant", etudiant);

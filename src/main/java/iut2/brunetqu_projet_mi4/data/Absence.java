@@ -1,9 +1,6 @@
 package iut2.brunetqu_projet_mi4.data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,7 +19,16 @@ public class Absence implements Serializable {
 
     @Column(nullable = true)
     private boolean justify;
-    @Column(nullable = false)
+
+    public Etudiant getEtudiant() {
+        return etudiant;
+    }
+
+    public void setEtudiant(Etudiant etudiant) {
+        this.etudiant = etudiant;
+    }
+
+    @OneToOne(mappedBy = "Etudiant", fetch = FetchType.LAZY)
     private Etudiant etudiant;
 
     public Absence(){

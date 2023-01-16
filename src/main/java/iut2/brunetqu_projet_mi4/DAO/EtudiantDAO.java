@@ -7,6 +7,8 @@ import iut2.brunetqu_projet_mi4.data.Groupe;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.Arrays;
+import java.util.List;
 
 public class EtudiantDAO {
 
@@ -41,7 +43,7 @@ public class EtudiantDAO {
         Etudiant etudiant = new Etudiant();
         etudiant.setPrenom(prenom);
         etudiant.setNom(nom);
-        etudiant.setGroupe(groupe);
+        etudiant.setGroupe(Arrays.asList(groupe));
         em.persist(etudiant);
 
         // Commit

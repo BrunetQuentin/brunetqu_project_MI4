@@ -12,6 +12,14 @@ public class Note implements Serializable {
     @GeneratedValue
     private int id;
 
+    public List<Etudiant> getEtudiant() {
+        return etudiant;
+    }
+
+    public void setEtudiant(List<Etudiant> etudiant) {
+        this.etudiant = etudiant;
+    }
+
     @OneToMany(mappedBy = "note", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Etudiant> etudiant;
 

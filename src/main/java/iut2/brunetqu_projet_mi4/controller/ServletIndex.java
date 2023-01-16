@@ -1,5 +1,6 @@
 package iut2.brunetqu_projet_mi4.controller;
 
+import iut2.brunetqu_projet_mi4.DAO.EtudiantDAO;
 import iut2.brunetqu_projet_mi4.data.Etudiant;
 import iut2.brunetqu_projet_mi4.data.GestionFactory;
 import jakarta.servlet.RequestDispatcher;
@@ -21,7 +22,7 @@ public class ServletIndex extends HttpServlet {
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        Collection<Etudiant> etudiants = GestionFactory.getEtudiants();
+        Collection<Etudiant> etudiants = EtudiantDAO.getAll();
 
         request.setAttribute("etudiants", etudiants);
 

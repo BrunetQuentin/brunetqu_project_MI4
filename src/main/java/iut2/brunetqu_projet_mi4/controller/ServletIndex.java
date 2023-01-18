@@ -26,7 +26,7 @@ public class ServletIndex extends HttpServlet {
 
         request.setAttribute("etudiants", etudiants);
 
-        loadJSP("/WEB-INF/index.jsp", request, response);
+        loadJSP("/WEB-INF/etudiants.jsp", request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);

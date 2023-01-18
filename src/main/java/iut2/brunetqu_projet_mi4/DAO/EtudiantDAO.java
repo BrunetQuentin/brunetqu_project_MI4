@@ -164,11 +164,8 @@ public class EtudiantDAO {
 
     // Retourne l'ensemble des etudiants
     public static List<Etudiant> getAll() {
-
-        // Creation de l'entity manager
         EntityManager em = GestionFactory.factory.createEntityManager();
 
-        // Recherche
         Query q = em.createQuery("SELECT e FROM Etudiant e");
 
         @SuppressWarnings("unchecked")
@@ -181,6 +178,7 @@ public class EtudiantDAO {
     public static List<Etudiant> getAllByAbsences() {
 
         // Creation de l'entity manager
+
         EntityManager em = GestionFactory.factory.createEntityManager();
 
         // Recherche

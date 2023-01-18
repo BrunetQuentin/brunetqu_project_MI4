@@ -17,7 +17,7 @@ public class NoteDAO {
 
         Note note = new Note();
         note.setNote(nbNote);
-        note.setEtudiant(Arrays.asList(etudiant));
+        note.setEtudiant(etudiant);
 
         em.getTransaction().commit();
 

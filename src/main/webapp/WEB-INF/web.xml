@@ -10,6 +10,45 @@
 
     <context-param>
         <param-name>header</param-name>
-        <param-value>/WEB-INF/common/header.jsp</param-value>
+        <param-value>/WEB-INF/header.jsp</param-value>
     </context-param>
+
+    <servlet>
+        <servlet-name>controleur</servlet-name>
+        <servlet-class>iut2.brunetqu_projet_mi4.controller.Controleur</servlet-class>
+
+        <init-param>
+            <param-name>urlEtudiants</param-name>
+            <param-value>/WEB-INF/etudiants.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>urlGroupes</param-name>
+            <param-value>/WEB-INF/groupe.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>urlFicheEtudiant</param-name>
+            <param-value>/WEB-INF/ficheEtudiant.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>urlEditionEtudiant</param-name>
+            <param-value>/WEB-INF/index.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>urlAbsences</param-name>
+            <param-value>/WEB-INF/absence.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>urlNotes</param-name>
+            <param-value>/WEB-INF/note.jsp</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>controleur</servlet-name>
+        <url-pattern>/do/*</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>do</welcome-file>
+    </welcome-file-list>
 </web-app>

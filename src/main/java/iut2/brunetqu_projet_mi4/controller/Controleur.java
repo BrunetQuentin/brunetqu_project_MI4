@@ -1,18 +1,20 @@
 package iut2.brunetqu_projet_mi4.controller;
 
+import iut2.brunetqu_projet_mi4.DAO.AbsenceDAO;
 import iut2.brunetqu_projet_mi4.DAO.EtudiantDAO;
 import iut2.brunetqu_projet_mi4.DAO.GroupeDAO;
-import iut2.brunetqu_projet_mi4.data.Etudiant;
-import iut2.brunetqu_projet_mi4.data.GestionFactory;
-import iut2.brunetqu_projet_mi4.data.Groupe;
+import iut2.brunetqu_projet_mi4.DAO.NoteDAO;
+import iut2.brunetqu_projet_mi4.data.*;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -26,15 +28,19 @@ public class Controleur extends HttpServlet {
     private String urlGroupes;
     private String urlFicheEtudiant;
     private String urlEditionEtudiant;
+    private String urlAbsences;
+    private String urlNotes;
 
     // INIT
     @Override
     public void init() throws ServletException {
         // Récupération des URLs en paramètre du web.xml
-        urlEtudiants = getServletConfig().getInitParameter("urlEtudiants");
+        this.urlEtudiants = getServletConfig().getInitParameter("urlEtudiants");
         urlGroupes = getServletConfig().getInitParameter("urlGroupes");
         urlFicheEtudiant = getServletConfig().getInitParameter("urlFicheEtudiant");
         urlEditionEtudiant = getServletConfig().getInitParameter("urlEditionEtudiant");
+        urlAbsences = getServletConfig().getInitParameter("urlAbsences");
+        urlNotes = getServletConfig().getInitParameter("urlNotes");
 
         // Création de la factory permettant la création d'EntityManager
         // (gestion des transactions)
@@ -99,6 +105,12 @@ public class Controleur extends HttpServlet {
             case "/modifetudiant":
                 doModifEtudiant(request, response);
                 break;
+            case "/notes":
+                doModifEtudiant(request, response);
+                break;
+            case "/absences":
+                doModifEtudiant(request, response);
+                break;
             default:
                 doEtudiants(request, response);
                 break;
@@ -110,11 +122,11 @@ public class Controleur extends HttpServlet {
     private void doEtudiants(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Récupérer les étudiants
-        List<Etudiant> etudiants = EtudiantDAO.getAll();
+        Collection<Etudiant> etudiants = EtudiantDAO.getAll();
 
-        // Ajouter les étudiants à la requête pour affichage
         request.setAttribute("etudiants", etudiants);
+
+        loadJSP("/WEB-INF/etudiants.jsp", request, response);
 
         //
         loadJSP(urlEtudiants, request, response);
@@ -191,6 +203,34 @@ public class Controleur extends HttpServlet {
 
         //
         loadJSP(urlFicheEtudiant, request, response);
+    }
+
+    // ///////////////////////
+    //
+    private void doAbsences(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        List<Absence> absences = AbsenceDAO.getAll();
+        request.setAttribute("absences", absences);
+
+        Collection<Etudiant> etudiants = EtudiantDAO.getAll();
+        request.setAttribute("etudiants", etudiants);
+
+        loadJSP(urlAbsences, request, response);
+    }
+
+    // ///////////////////////
+    //
+    private void doNotes(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        List<Note> notes = NoteDAO.getAll();
+        request.setAttribute("notes", notes);
+
+        Collection<Etudiant> etudiants = EtudiantDAO.getAll();
+        request.setAttribute("etudiants", etudiants);
+
+        loadJSP(urlNotes, request, response);
     }
 
     /**

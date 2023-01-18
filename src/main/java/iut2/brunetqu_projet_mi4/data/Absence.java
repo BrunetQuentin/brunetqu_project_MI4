@@ -20,6 +20,9 @@ public class Absence implements Serializable {
     @Column(nullable = true)
     private boolean justify;
 
+    @ManyToOne()
+    private Etudiant etudiant;
+
     public Etudiant getEtudiant() {
         return etudiant;
     }
@@ -27,9 +30,6 @@ public class Absence implements Serializable {
     public void setEtudiant(Etudiant etudiant) {
         this.etudiant = etudiant;
     }
-
-    @OneToOne(mappedBy = "Etudiant", fetch = FetchType.LAZY)
-    private Etudiant etudiant;
 
     public Absence(){
         super();

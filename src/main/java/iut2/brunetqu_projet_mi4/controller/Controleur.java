@@ -50,6 +50,7 @@ public class Controleur extends HttpServlet {
         // Normalement l'initialisation se fait directement dans la base de données
         if ((GroupeDAO.getAll().size() == 0) && (EtudiantDAO.getAll().size() == 0)) {
 
+            System.out.println("je passe");
             // Creation des groupes
             Groupe MIAM = GroupeDAO.create("miam");
             Groupe SIMO = GroupeDAO.create("SIMO");
@@ -88,7 +89,7 @@ public class Controleur extends HttpServlet {
         if (action == null) {
             action = "/etudiants";
         }
-
+        System.out.println(action);
         switch(action){
             case "/etudiants":
                 doEtudiants(request, response);
@@ -127,6 +128,7 @@ public class Controleur extends HttpServlet {
         request.setAttribute("etudiants", etudiants);
 
         loadJSP("/WEB-INF/etudiants.jsp", request, response);
+        System.out.println(etudiants);
 
         //
         loadJSP(urlEtudiants, request, response);

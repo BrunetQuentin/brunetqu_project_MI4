@@ -15,19 +15,19 @@ public class Etudiant implements Serializable {
 	private String prenom;
 	@Column(nullable = false)
 	private String nom;
-	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-	private List<Groupe> groupes;
+	@ManyToOne
+	private Groupe groupe;
 	@OneToMany(mappedBy = "etudiant", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Note> notes;
 	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Absence> absences;
 
-	public List<Groupe> getGroupe() {
-		return groupes;
+	public Groupe getGroupe() {
+		return groupe;
 	}
 
-	public void setGroupe(List<Groupe> groupes) {
-		this.groupes = groupes;
+	public void setGroupe(Groupe groupe) {
+		this.groupe = groupe;
 	}
 	public Etudiant() {
 		super();

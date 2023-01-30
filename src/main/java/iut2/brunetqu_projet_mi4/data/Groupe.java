@@ -11,7 +11,7 @@ public class Groupe implements Serializable {
     private Integer id;
     @Column(unique = true, nullable = false)
     private String nom;
-    @ManyToMany(mappedBy = "groupes", fetch = FetchType.LAZY)    // LAZY = fetch when needed, EAGER = fetch immediately
+    @OneToMany(mappedBy = "groupe", fetch = FetchType.LAZY)    // LAZY = fetch when needed, EAGER = fetch immediately
     private List<Etudiant> etudiants;
     public Groupe() {
         super();

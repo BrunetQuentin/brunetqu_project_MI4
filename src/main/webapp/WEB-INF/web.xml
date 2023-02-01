@@ -18,12 +18,14 @@
         <servlet-class>iut2.brunetqu_projet_mi4.controller.Controleur</servlet-class>
 
         <init-param>
+            <param-name>url</param-name>
+            <param-value>/brunetqu_projet_MI4_war_exploded/do/</param-value>
+        </init-param>
+
+        <!--///// ETUDIANT //////-->
+        <init-param>
             <param-name>urlEtudiants</param-name>
             <param-value>/WEB-INF/etudiants.jsp</param-value>
-        </init-param>
-        <init-param>
-            <param-name>urlGroupes</param-name>
-            <param-value>/WEB-INF/groupe.jsp</param-value>
         </init-param>
         <init-param>
             <param-name>urlFicheEtudiant</param-name>
@@ -31,12 +33,31 @@
         </init-param>
         <init-param>
             <param-name>urlEditionEtudiant</param-name>
-            <param-value>/WEB-INF/index.jsp</param-value>
+            <param-value>/WEB-INF/editionEtudiant.jsp</param-value>
         </init-param>
+        <init-param>
+            <param-name>urlAjoutEtudiant</param-name>
+            <param-value>/WEB-INF/ajoutEtudiant.jsp</param-value>
+        </init-param>
+        <!--///// GROUPE //////-->
+        <init-param>
+            <param-name>urlGroupes</param-name>
+            <param-value>/WEB-INF/groupe.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>urlEditionGroupe</param-name>
+            <param-value>/WEB-INF/editionGroupe.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>urlAjoutGroupe</param-name>
+            <param-value>/WEB-INF/ajoutGroupe.jsp</param-value>
+        </init-param>
+        <!--///// ABSENCE //////-->
         <init-param>
             <param-name>urlAbsences</param-name>
             <param-value>/WEB-INF/absence.jsp</param-value>
         </init-param>
+        <!--///// NOTE //////-->
         <init-param>
             <param-name>urlNotes</param-name>
             <param-value>/WEB-INF/note.jsp</param-value>

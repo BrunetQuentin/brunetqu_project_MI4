@@ -10,7 +10,7 @@
     <title><%= etudiant.getNom() %> <%= etudiant.getPrenom() %></title>
 </head>
 <body>
-    <h1>Projet - étape 2</h1>
+    <jsp:include page='<%= application.getInitParameter("header")%>' />
     <h2>Fiche détaillée d'un étudiant</h2>
     <div>
         Nom :
@@ -24,8 +24,5 @@
         Nombre d'abscence :
         <%= nbAbsences %>
     </div>
-
-    <br/>
-    <a href="servletindex">Retour à la liste d'étudiants</a>
 </body>
 </html>

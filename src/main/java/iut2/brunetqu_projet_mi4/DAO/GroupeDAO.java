@@ -1,11 +1,13 @@
 package iut2.brunetqu_projet_mi4.DAO;
 
+import iut2.brunetqu_projet_mi4.data.Etudiant;
 import iut2.brunetqu_projet_mi4.data.GestionFactory;
 import iut2.brunetqu_projet_mi4.data.Groupe;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
+import java.util.Map;
 
 public class GroupeDAO {
 
@@ -113,4 +115,43 @@ public class GroupeDAO {
 
         return groupe;
     }
+
+    public static Groupe retrieveById(int id) {
+
+        EntityManager em = GestionFactory.factory.createEntityManager();
+
+        Groupe groupe = em.find(Groupe.class, id);
+
+        em.close();
+
+        return groupe;
+    }
+
+    public static void editFormGroupe(Map<String, String[]> form, int id){
+
+        Groupe groupe;
+
+        if(id == -1){
+            groupe = new Groupe();
+        }else {
+            groupe = retrieveById(id);
+        }
+
+        for (Map.Entry<String, String[]> entry : form.entrySet()) {
+            String[] values = entry.getValue();
+            if(values.length == 0) continue;
+            String value = values[0];
+            if(value.isEmpty()) continue;
+
+            switch (entry.getKey()){
+                ///: TODOOOOO !!! ::::
+            }
+        }
+        if(id == -1){
+            addEtudiant(etudiant);
+        }else {
+            update(etudiant);
+        }
+    }
+
 }

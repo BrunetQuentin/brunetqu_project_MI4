@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class EtudiantDAO {
 
@@ -54,6 +55,14 @@ public class EtudiantDAO {
         em.close();
 
         return etudiant;
+    }
+
+    public static void addEtudiant(Etudiant etudiant){
+        EntityManager em = GestionFactory.factory.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(etudiant);
+        em.getTransaction().commit();
+        em.close();
     }
 
     public static Etudiant update(Etudiant etudiant) {
@@ -190,6 +199,38 @@ public class EtudiantDAO {
         List<Etudiant> listEtudiant = q.getResultList();
 
         return listEtudiant;
+    }
+
+    public static void editFormEtudiant(Map<String, String[]> form, int id){
+
+        Etudiant etudiant;
+
+        if(id == -1){
+            etudiant = new Etudiant();
+        }else {
+            etudiant = retrieveById(id);
+        }
+
+        for (Map.Entry<String, String[]> entry : form.entrySet()) {
+            String[] values = entry.getValue();
+            if(values.length == 0) continue;
+            String value = values[0];
+            if(value.isEmpty()) continue;
+
+            switch (entry.getKey()){
+                case "nom":
+                    etudiant.setNom(value);
+                    break;
+                case "prenom":
+                    etudiant.setPrenom(value);
+                    break;
+            }
+        }
+        if(id == -1){
+            addEtudiant(etudiant);
+        }else {
+            update(etudiant);
+        }
     }
 
 }

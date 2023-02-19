@@ -8,21 +8,24 @@
 <html>
 <head>
     <title><%= etudiant.getNom() %> <%= etudiant.getPrenom() %></title>
+    <jsp:include page='<%= application.getInitParameter("head")%>' />
 </head>
 <body>
     <jsp:include page='<%= application.getInitParameter("header")%>' />
-    <h2>Fiche détaillée d'un étudiant</h2>
-    <div>
-        Nom :
-        <%= etudiant.getNom() %>
-    </div>
-    <div>
-        Prénom :
-        <%= etudiant.getPrenom() %>
-    </div>
-    <div>
-        Nombre d'abscence :
-        <%= nbAbsences %>
-    </div>
+    <main>
+        <h2>Fiche détaillée d'un étudiant</h2>
+        <div>
+            Nom :
+            <%= etudiant.getNom() %>
+        </div>
+        <div>
+            Prénom :
+            <%= etudiant.getPrenom() %>
+        </div>
+        <div>
+            Nombre d'abscence :
+            <%= nbAbsences %>
+        </div>
+    </main>
 </body>
 </html>

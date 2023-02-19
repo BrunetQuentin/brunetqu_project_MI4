@@ -61,6 +61,31 @@ public class GroupeDAO {
         em.close();
     }
 
+    public static void remove(int idGroupe) {
+        Groupe groupe = retrieveById(idGroupe);
+
+        // Creation de l'entity manager
+        EntityManager em = GestionFactory.factory.createEntityManager();
+
+        //
+        em.getTransaction().begin();
+
+        // Le groupe passé en paramètre doit être associé à l'EM
+        if (!em.contains(groupe)) {
+            groupe = em.merge(groupe);
+        }
+
+        // Supprime l'entité courante mais aussi les entités (étudiants) liées
+        // grâce à l'annotation cascade = {CascadeType.REMOVE} dans la classe Groupe
+        em.remove(groupe);
+
+        // Commit
+        em.getTransaction().commit();
+
+        // Close the entity manager
+        em.close();
+    }
+
     public static int removeAll() {
 
         // Creation de l'entity manager
@@ -127,6 +152,19 @@ public class GroupeDAO {
         return groupe;
     }
 
+    public static Groupe addGroupe(Groupe groupe) {
+
+        EntityManager em = GestionFactory.factory.createEntityManager();
+        em.getTransaction().begin();
+
+        em.persist(groupe);
+
+        int id = groupe.getId();
+        em.getTransaction().commit();
+
+        em.close();
+        return groupe;
+    }
     public static void editFormGroupe(Map<String, String[]> form, int id){
 
         Groupe groupe;
@@ -141,16 +179,16 @@ public class GroupeDAO {
             String[] values = entry.getValue();
             if(values.length == 0) continue;
             String value = values[0];
-            if(value.isEmpty()) continue;
 
             switch (entry.getKey()){
-                ///: TODOOOOO !!! ::::
+                case "nom":
+                    groupe.setNom(value);
             }
         }
         if(id == -1){
-            addEtudiant(etudiant);
+            addGroupe(groupe);
         }else {
-            update(etudiant);
+            update(groupe);
         }
     }
 

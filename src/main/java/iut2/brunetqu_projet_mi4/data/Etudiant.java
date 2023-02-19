@@ -69,5 +69,19 @@ public class Etudiant implements Serializable {
 	public void removeAbsence(Absence absence){
 		this.absences.remove(absence);
 	}
+	public int getNbrAbsences(){
+		return this.absences.size();
+	}
+
+	public float getMoyenne(){
+		float moyenne = 0;
+		for (Note note : notes) {
+			moyenne += note.getNote();
+		}
+		if(notes.size() == 0){
+			return -1;
+		}
+		return moyenne / notes.size();
+	}
 
 }

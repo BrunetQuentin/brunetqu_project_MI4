@@ -1,9 +1,6 @@
 package iut2.brunetqu_projet_mi4.DAO;
 
-import iut2.brunetqu_projet_mi4.data.Absence;
-import iut2.brunetqu_projet_mi4.data.Etudiant;
-import iut2.brunetqu_projet_mi4.data.GestionFactory;
-import iut2.brunetqu_projet_mi4.data.Groupe;
+import iut2.brunetqu_projet_mi4.data.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -40,5 +37,16 @@ public class AbsenceDAO {
         em.close();
 
         return absences;
+    }
+
+    public static Absence retrieveById(int id) {
+
+        EntityManager em = GestionFactory.factory.createEntityManager();
+
+        Absence absence = em.find(Absence.class, id);
+
+        em.close();
+
+        return absence;
     }
 }

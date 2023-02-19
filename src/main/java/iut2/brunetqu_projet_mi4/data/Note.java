@@ -7,7 +7,7 @@ import java.util.List;
 @Entity
 public class Note implements Serializable {
 
-    private int note;
+    private float note;
     @Id
     @GeneratedValue
     private int id;
@@ -32,11 +32,11 @@ public class Note implements Serializable {
         super();
     }
 
-    public int getNote() {
+    public float getNote() {
         return note;
     }
 
-    public void setNote(int note) {
+    public void setNote(float note) {
         this.note = note;
     }
     public int getId() {

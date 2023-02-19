@@ -215,7 +215,6 @@ public class EtudiantDAO {
             String[] values = entry.getValue();
             if(values.length == 0) continue;
             String value = values[0];
-            if(value.isEmpty()) continue;
 
             switch (entry.getKey()){
                 case "nom":
@@ -223,6 +222,14 @@ public class EtudiantDAO {
                     break;
                 case "prenom":
                     etudiant.setPrenom(value);
+                    break;
+                case "groupe":
+                    if(value.isEmpty()){
+                        etudiant.setGroupe(null);
+                        break;
+                    }
+                    Groupe groupe = GroupeDAO.retrieveById(Integer.parseInt(value));
+                    etudiant.setGroupe(groupe);
                     break;
             }
         }

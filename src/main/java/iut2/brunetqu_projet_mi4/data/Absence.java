@@ -57,4 +57,6 @@ public class Absence implements Serializable {
     public void setEndAt(Date endAt) {
         this.endAt = endAt;
     }
+
+    public int getId(){return this.id;}
 }

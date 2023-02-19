@@ -2,6 +2,7 @@ package iut2.brunetqu_projet_mi4.DAO;
 
 import iut2.brunetqu_projet_mi4.data.Etudiant;
 import iut2.brunetqu_projet_mi4.data.GestionFactory;
+import iut2.brunetqu_projet_mi4.data.Groupe;
 import iut2.brunetqu_projet_mi4.data.Note;
 
 import javax.persistence.EntityManager;
@@ -34,5 +35,16 @@ public class NoteDAO {
 
         List<Note> listNotes = query.getResultList();
         return listNotes;
+    }
+
+    public static Note retrieveById(int id) {
+
+        EntityManager em = GestionFactory.factory.createEntityManager();
+
+        Note note = em.find(Note.class, id);
+
+        em.close();
+
+        return note;
     }
 }

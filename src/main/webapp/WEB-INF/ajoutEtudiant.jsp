@@ -1,25 +1,47 @@
-<%--
+<%@ page import="iut2.brunetqu_projet_mi4.data.Groupe" %><%--
   Created by IntelliJ IDEA.
   User: quentin
   Date: 01/02/2023
   Time: 16:05
   To change this template use File | Settings | File Templates.
 --%>
+<jsp:useBean id="groupes" type="java.util.Collection<iut2.brunetqu_projet_mi4.data.Groupe>" scope="request"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Ajout etudiant</title>
+    <jsp:include page='<%= application.getInitParameter("head")%>' />
 </head>
 <body>
   <jsp:include page='<%=application.getInitParameter("header")%>' />
-  <form method="post">
-      <label for="nom">Nom :</label>
-      <input name="nom" id="nom">
+  <main>
+      <h2>Ajouter un étudiant</h2>
+      <form method="post">
+          <fieldset>
+              <legend>Informations de l'étudiant</legend>
+              <div>
+                  <label for="nom">Nom :</label>
+                  <input name="nom" id="nom">
+              </div>
 
-      <label for="prenom">Prenom :</label>
-      <input name="prenom" id="prenom">
+              <div>
+                  <label for="prenom">Prenom :</label>
+                  <input name="prenom" id="prenom">
+              </div>
 
-      <button type="submit">Valider</button>
-  </form>
+              <div>
+                  <label for="groupe">Groupe :</label>
+                  <select id="groupe" name="groupe">
+                      <option value="" selected/>
+                      <%for(Groupe groupe : groupes) {%>
+                      <option value="<%=groupe.getId()%>"><%=groupe.getNom()%></option>
+                      <%}%>
+                  </select>
+              </div>
+
+              <button type="submit">Valider</button>
+          </fieldset>
+      </form>
+  </main>
 </body>
 </html>

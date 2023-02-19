@@ -13,6 +13,11 @@
         <param-value>/WEB-INF/header.jsp</param-value>
     </context-param>
 
+    <context-param>
+        <param-name>head</param-name>
+        <param-value>/WEB-INF/head.jsp</param-value>
+    </context-param>
+
     <servlet>
         <servlet-name>controleur</servlet-name>
         <servlet-class>iut2.brunetqu_projet_mi4.controller.Controleur</servlet-class>
@@ -57,10 +62,18 @@
             <param-name>urlAbsences</param-name>
             <param-value>/WEB-INF/absence.jsp</param-value>
         </init-param>
+        <init-param>
+            <param-name>urlAjoutAbsence</param-name>
+            <param-value>/WEB-INF/ajoutAbsence.jsp</param-value>
+        </init-param>
         <!--///// NOTE //////-->
         <init-param>
             <param-name>urlNotes</param-name>
             <param-value>/WEB-INF/note.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>urlAjoutNote</param-name>
+            <param-value>/WEB-INF/ajoutNote.jsp</param-value>
         </init-param>
     </servlet>
 

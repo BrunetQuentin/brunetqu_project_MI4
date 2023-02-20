@@ -35,7 +35,7 @@
                 <select id="groupe" name="groupe">
                     <option value="" <%=etudiant.getGroupe() == null ? "selected" : ""%>/>
                     <%for(Groupe groupe : groupes) {%>
-                    <option value="<%=groupe.getId()%>" <%=etudiant.getGroupe() != null && groupe.getId() == etudiant.getGroupe().getId() ? "selected" : ""%>><%=groupe.getNom()%></option>
+                    <option value="<%=groupe.getId()%>" <%=(etudiant.getGroupe() != null && groupe.getId() == etudiant.getGroupe().getId()) ? "selected" : ""%>><%=groupe.getNom()%></option>
                     <%}%>
                 </select>
             </div>

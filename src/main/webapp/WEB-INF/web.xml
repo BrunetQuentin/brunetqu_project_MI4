@@ -27,14 +27,19 @@
             <param-value>/brunetqu_projet_MI4_war_exploded/do/</param-value>
         </init-param>
 
+        <init-param>
+            <param-name>urlAcceuil</param-name>
+            <param-value>/WEB-INF/acceuil.jsp</param-value>
+        </init-param>
+
         <!--///// ETUDIANT //////-->
         <init-param>
             <param-name>urlEtudiants</param-name>
             <param-value>/WEB-INF/etudiants.jsp</param-value>
         </init-param>
         <init-param>
-            <param-name>urlFicheEtudiant</param-name>
-            <param-value>/WEB-INF/ficheEtudiant.jsp</param-value>
+            <param-name>urlEtudiant</param-name>
+            <param-value>/WEB-INF/etudiant.jsp</param-value>
         </init-param>
         <init-param>
             <param-name>urlEditionEtudiant</param-name>
@@ -66,6 +71,10 @@
             <param-name>urlAjoutAbsence</param-name>
             <param-value>/WEB-INF/ajoutAbsence.jsp</param-value>
         </init-param>
+        <init-param>
+            <param-name>urlEditionAbsence</param-name>
+            <param-value>/WEB-INF/editionAbsence.jsp</param-value>
+        </init-param>
         <!--///// NOTE //////-->
         <init-param>
             <param-name>urlNotes</param-name>
@@ -74,6 +83,10 @@
         <init-param>
             <param-name>urlAjoutNote</param-name>
             <param-value>/WEB-INF/ajoutNote.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>urlEditionNote</param-name>
+            <param-value>/WEB-INF/editionNote.jsp</param-value>
         </init-param>
     </servlet>
 

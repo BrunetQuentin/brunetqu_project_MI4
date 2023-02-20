@@ -17,9 +17,9 @@ public class Etudiant implements Serializable {
 	private String nom;
 	@ManyToOne
 	private Groupe groupe;
-	@OneToMany(mappedBy = "etudiant", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToMany(mappedBy = "etudiant", fetch = FetchType.LAZY, cascade = {CascadeType.ALL, CascadeType.REMOVE})
 	private List<Note> notes;
-	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToMany(mappedBy = "etudiant", fetch = FetchType.LAZY, cascade = {CascadeType.ALL, CascadeType.REMOVE})
 	private List<Absence> absences;
 
 	public Groupe getGroupe() {
@@ -31,6 +31,7 @@ public class Etudiant implements Serializable {
 	}
 	public Etudiant() {
 		super();
+		this.absences = new ArrayList<>();
 	}
 
 	public Integer getId() {
@@ -69,8 +70,9 @@ public class Etudiant implements Serializable {
 	public void removeAbsence(Absence absence){
 		this.absences.remove(absence);
 	}
-	public int getNbrAbsences(){
-		return this.absences.size();
+
+	public List<Absence> getAbsences(){
+		return this.absences;
 	}
 
 	public float getMoyenne(){
@@ -84,4 +86,7 @@ public class Etudiant implements Serializable {
 		return moyenne / notes.size();
 	}
 
+	public List<Note> getNotes() {
+		return this.notes;
+	}
 }

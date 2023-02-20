@@ -23,9 +23,10 @@ import java.util.*;
 @SuppressWarnings("serial")
 public class Controleur extends HttpServlet {
 
+    private String urlAcceuil;
     //// ETUDIANT ////
     private String urlEtudiants;
-    private String urlFicheEtudiant;
+    private String urlEtudiant;
     private String urlEditionEtudiant;
     private String urlAjoutEtudiant;
 
@@ -37,19 +38,21 @@ public class Controleur extends HttpServlet {
     //// ABSENCE ////
     private String urlAbsences;
     private String urlAjoutAbsence;
+    private String urlEditionAbsence;
 
     //// NOTE ////
     private String urlNotes;
     private String urlAjoutNote;
+    private String urlEditionNote;
 
     // INIT
     @Override
     public void init() throws ServletException {
         // Récupération des URLs en paramètre du web.xml
-
+        urlAcceuil = getServletConfig().getInitParameter("urlAcceuil");
         //// ETUDIANT ////
         urlEtudiants = getServletConfig().getInitParameter("urlEtudiants");
-        urlFicheEtudiant = getServletConfig().getInitParameter("urlFicheEtudiant");
+        urlEtudiant = getServletConfig().getInitParameter("urlEtudiant");
         urlEditionEtudiant = getServletConfig().getInitParameter("urlEditionEtudiant");
         urlAjoutEtudiant = getServletConfig().getInitParameter("urlAjoutEtudiant");
         //// GROUPE ////
@@ -59,9 +62,11 @@ public class Controleur extends HttpServlet {
         //// ABSENCE ////
         urlAbsences = getServletConfig().getInitParameter("urlAbsences");
         urlAjoutAbsence = getServletConfig().getInitParameter("urlAjoutAbsence");
+        urlEditionAbsence = getServletConfig().getInitParameter("urlEditionAbsence");
         //// NOTE ////
         urlNotes = getServletConfig().getInitParameter("urlNotes");
         urlAjoutNote = getServletConfig().getInitParameter("urlAjoutNote");
+        urlEditionNote = getServletConfig().getInitParameter("urlEditionNote");
 
         // Création de la factory permettant la création d'EntityManager
         // (gestion des transactions)
@@ -130,7 +135,23 @@ public class Controleur extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/do/groupes");
                 break;
             /////// NOTE //////
+            case "editionnote":
+                editionNote(actions, params);
+                response.sendRedirect(request.getContextPath() + "/do/notes");
+                break;
+            case "ajouternote":
+                ajoutNote(params);
+                response.sendRedirect(request.getContextPath() + "/do/notes");
+                break;
             /////// ABSENCE //////
+            case "editionabsence":
+                editionAbsence(actions, params);
+                response.sendRedirect(request.getContextPath() + "/do/absences");
+                break;
+            case "ajouterabsence":
+                ajoutAbsence(params);
+                response.sendRedirect(request.getContextPath() + "/do/absences");
+                break;
         }
     }
 
@@ -153,12 +174,15 @@ public class Controleur extends HttpServlet {
         request.setAttribute("firstAction", firstAction);
         System.out.println("get: " + firstAction);
         switch(firstAction){
+            case "acceuil":
+                doAcceuil(request, response);
+                break;
                 /////// ETUDIANT //////
             case "etudiants":
                 doEtudiants(request, response);
                 break;
-            case "ficheetudiant":
-                doFicheEtudiant(request, response, actions);
+            case "etudiant":
+                doEtudiant(request, response, actions);
                 break;
             case "editionetudiant":
                 doEditionEtudiant(request, response, actions);
@@ -189,14 +213,28 @@ public class Controleur extends HttpServlet {
                 doAbsences(request, response);
                 break;
             case "ajouterabsence":
-                doAjoutAbsence(request, response, actions);
+                doAjoutAbsence(request, response);
+                break;
+            case "editionabsence":
+                doEditionAbsence(request, response, actions);
+                break;
+            case "suppressionabsence":
+                enleverAbsence(actions);
+                response.sendRedirect(request.getContextPath() + "/do/absences");
                 break;
             /////// NOTE //////
             case "notes":
                 doNotes(request, response);
                 break;
             case "ajouternote":
-                doAjoutNote(request, response, actions);
+                doAjoutNote(request, response);
+                break;
+            case "editionnote":
+                doEditionNote(request, response, actions);
+                break;
+            case "suppressionnote":
+                enleverNote(actions);
+                response.sendRedirect(request.getContextPath() + "/do/notes");
                 break;
             default:
                 doEtudiants(request, response);
@@ -231,6 +269,21 @@ public class Controleur extends HttpServlet {
         rd.forward(request, response);
     }
 
+    public void doAcceuil (HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        List<Etudiant> etudiants = EtudiantDAO.getAll();
+        List<Groupe> groupes = GroupeDAO.getAll();
+        List<Absence> absences = AbsenceDAO.getAll();
+        List<Note> notes = NoteDAO.getAll();
+
+        request.setAttribute("etudiants", etudiants);
+        request.setAttribute("groupes", groupes);
+        request.setAttribute("absences", absences);
+        request.setAttribute("notes", notes);
+
+        loadJSP(urlAcceuil, request, response);
+    }
+
     /////////////////////////////////////////////////////ETUDIANT METHODE ////////////////////
     private void doEtudiants(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -244,18 +297,19 @@ public class Controleur extends HttpServlet {
         loadJSP(urlEtudiants, request, response);
     }
 
-    private void doFicheEtudiant(HttpServletRequest request, HttpServletResponse response, ArrayList<String> parameter)
+    private void doEtudiant(HttpServletRequest request, HttpServletResponse response, ArrayList<String> parameter)
             throws ServletException, IOException {
 
         int idEtudiant = Integer.valueOf(parameter.get(0));
         parameter.remove(0);
 
-        System.out.println("idEtudiant: " + idEtudiant);
         Etudiant etudiant = EtudiantDAO.retrieveById(idEtudiant);
-        request.setAttribute("etudiant", etudiant);
-        request.setAttribute("nbAbsences", 2);
 
-        loadJSP(urlFicheEtudiant, request, response);
+        List<Absence> absences = AbsenceDAO.getAbsenceByUserId(idEtudiant);
+
+        request.setAttribute("etudiant", etudiant);
+
+        loadJSP(urlEtudiant, request, response);
     }
     private void doEditionEtudiant(HttpServletRequest request, HttpServletResponse response, ArrayList<String> actions)
             throws ServletException, IOException {
@@ -354,17 +408,46 @@ public class Controleur extends HttpServlet {
 
         loadJSP(urlAbsences, request, response);
     }
-    private void doAjoutAbsence(HttpServletRequest request, HttpServletResponse response, ArrayList<String> actions)
+    private void doAjoutAbsence(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        List<Etudiant> etudiants = EtudiantDAO.getAll();
+        request.setAttribute("etudiants", etudiants);
+
+        loadJSP(urlAjoutAbsence, request, response);
+    }
+
+    private void doEditionAbsence(HttpServletRequest request, HttpServletResponse response, ArrayList<String> actions)
             throws ServletException, IOException {
 
         int absenceId = Integer.valueOf(actions.get(0));
         actions.remove(0);
 
         Absence absence = AbsenceDAO.retrieveById(absenceId);
-
         request.setAttribute("absence", absence);
 
-        loadJSP(urlAjoutAbsence, request, response);
+        List<Etudiant> etudiants = EtudiantDAO.getAll();
+        request.setAttribute("etudiants", etudiants);
+
+        loadJSP(urlEditionAbsence, request, response);
+    }
+
+    public void editionAbsence(ArrayList<String> actions, Map<String,String[]>params){
+
+        int idAbsence = Integer.valueOf(actions.get(0));
+
+        AbsenceDAO.editFormAbsence(params, idAbsence);
+    }
+
+    public void enleverAbsence(ArrayList<String> actions){
+
+        int idAbsence = Integer.valueOf(actions.get(0));
+
+        AbsenceDAO.remove(idAbsence);
+    }
+
+    public void ajoutAbsence(Map<String,String[]>params){
+        AbsenceDAO.editFormAbsence(params, -1);
     }
 
     /////////////////////////////////////////////NOTE METHODE//////////////////////////////////
@@ -377,16 +460,45 @@ public class Controleur extends HttpServlet {
         loadJSP(urlNotes, request, response);
     }
 
-    private void doAjoutNote(HttpServletRequest request, HttpServletResponse response, ArrayList<String> actions)
+    private void doAjoutNote(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        List<Etudiant> etudiants = EtudiantDAO.getAll();
+        request.setAttribute("etudiants", etudiants);
+
+        loadJSP(urlAjoutNote, request, response);
+    }
+
+    private void doEditionNote(HttpServletRequest request, HttpServletResponse response, ArrayList<String> actions)
             throws ServletException, IOException {
 
         int noteId = Integer.valueOf(actions.get(0));
         actions.remove(0);
 
         Note note = NoteDAO.retrieveById(noteId);
-
         request.setAttribute("note", note);
 
-        loadJSP(urlAjoutNote, request, response);
+        List<Etudiant> etudiants = EtudiantDAO.getAll();
+        request.setAttribute("etudiants", etudiants);
+
+        loadJSP(urlEditionNote, request, response);
+    }
+
+    public void editionNote(ArrayList<String> actions, Map<String,String[]>params){
+
+        int idNote = Integer.valueOf(actions.get(0));
+
+        NoteDAO.editFormNote(params, idNote);
+    }
+
+    public void ajoutNote(Map<String,String[]>params){
+        NoteDAO.editFormNote(params, -1);
+    }
+
+    public void enleverNote(ArrayList<String> actions){
+
+        int idNote = Integer.valueOf(actions.get(0));
+
+        NoteDAO.remove(idNote);
     }
 }

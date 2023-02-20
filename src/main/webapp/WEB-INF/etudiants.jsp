@@ -56,12 +56,15 @@
                                 <%= etudiant.getGroupe() != null ? etudiant.getGroupe().getNom() : "-" %>
                             </td>
                             <td>
-                                <%=etudiant.getNbrAbsences() %>
+                                <%=etudiant.getAbsences().toArray().length %>
                             </td>
                             <td>
                                 <%= etudiant.getMoyenne() == -1 ? "-" : etudiant.getMoyenne()  %>
                             </td>
                             <td>
+                                <a href="${pageContext.request.contextPath}/do/etudiant/<%=etudiant.getId() %>">
+                                    <i class="fas fa-file-invoice" title="Informations sur l'étudiant"></i>
+                                </a>
                                 <a href="${pageContext.request.contextPath}/do/editionetudiant/<%=etudiant.getId() %>">
                                     <i class="fas fa-pen-to-square" title="Editer"></i>
                                 </a>

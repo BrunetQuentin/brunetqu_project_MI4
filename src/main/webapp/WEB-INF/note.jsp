@@ -39,7 +39,7 @@
                 <%=note.getId() %>
             </td>
             <td>
-                <%=note.getEtudiant().getPrenom() + " " + note.getEtudiant().getNom()%>
+                <%=note.getEtudiant() != null ? (note.getEtudiant().getPrenom() + " " + note.getEtudiant().getNom()) : "Pb suppression cascade"%>
             </td>
             <td>
                 <%=note.getNote()%>

@@ -33,8 +33,6 @@ public class EtudiantDAO {
 
 
     public static Etudiant create(String prenom, String nom, Groupe groupe) {
-
-        System.out.println(prenom);
         // Creation de l'entity manager
         EntityManager em = GestionFactory.factory.createEntityManager();
 
